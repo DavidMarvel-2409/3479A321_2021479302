@@ -30,17 +30,17 @@ class MinesweeperScreen extends StatelessWidget {
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(), // Bloquea el scroll
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 8, // 8 columnas
-            crossAxisSpacing: 2.0,
-            mainAxisSpacing: 2.0,
+              crossAxisCount: 8, // 8 columnas
+              crossAxisSpacing: 2.0,
+              mainAxisSpacing: 2.0,
             ),
             itemCount: 64, // 8x8 = 64 celdas
             itemBuilder: (context, index) {
               return Container(
-              decoration: BoxDecoration(
-              color: Colors.grey[400],
-              border: Border.all(color: Colors.grey[600]!, width: 1.5),
-              ),
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  border: Border.all(color: Colors.grey[600]!, width: 1.5),
+                ),
               );
             },
           ),
