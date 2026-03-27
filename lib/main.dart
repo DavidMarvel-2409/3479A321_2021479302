@@ -5,17 +5,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Buscaminas",
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const Text("HolaMundo"),
-    );
-  }
+const MyApp({Key? key}) : super(key: key);
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+title: 'Buscaminas',
+theme: ThemeData(primarySwatch: Colors.blue),
+home: const Text('Hello, World!'), // Apuntamos a nuestra nueva pantalla
+);
 }
+}
+
 
