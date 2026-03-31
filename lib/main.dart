@@ -60,7 +60,7 @@ class MinesweeperScreen extends StatelessWidget {
             // Área de Status
             Container(
               height: 60,
-              color: Colors.grey[300],
+              color: const Color.fromARGB(255, 224, 224, 224),
               child: const Center(
                 child: Text(
                   'STATUS: 349 segundos | Minas: 10 | Cuadros: 56',
@@ -90,8 +90,11 @@ class MineCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[400],
-        border: Border.all(color: Colors.grey[600]!, width: 1.5),
+        color: const Color.fromARGB(255, 56, 179, 122),
+        border: Border.all(
+          color: const Color.fromARGB(255, 11, 96, 117)!,
+          width: 1.5,
+        ),
       ),
     );
   }
