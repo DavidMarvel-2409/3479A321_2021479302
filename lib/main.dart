@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/*el commit actual es solo para dejar claro que no habia clonado bien el repositorio en el dispositivo actual*/
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
 
@@ -35,12 +34,13 @@ class MinesweeperScreen extends StatelessWidget {
             ),
             itemCount: 64, // 8x8 = 64 celdas
             itemBuilder: (context, index) {
-              return Container(
+              return MineCell(index: index);
+              /*return Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[400],
                   border: Border.all(color: Colors.grey[600]!, width: 1.5),
                 ),
-              );
+              );*/
             },
           ),
         ),
@@ -76,6 +76,22 @@ class MinesweeperScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MineCell extends StatelessWidget {
+  final int index;
+
+  const MineCell({Key? key, required this.index}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[400],
+        border: Border.all(color: Colors.grey[600]!, width: 1.5),
       ),
     );
   }
