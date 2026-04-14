@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
+var logger = Logger();
 
 void main() {
+  logger.d('Debug: iniciando app');
+  logger.i('Info: app iniciada');
+  logger.w('Warning: prueba');
+  logger.e('Error: prueba');
   runApp(const MyApp());
 }
 
