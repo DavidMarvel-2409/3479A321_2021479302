@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/mine_cell.dart';
+import '../screens/about.dart';
 
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
@@ -36,7 +37,20 @@ class MinesweeperScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Buscaminas')),
+      appBar: AppBar(
+        title: const Text('Buscaminas'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person_outline),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AboutScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         // Protege la UI de los bordes del dispositivo
         child: Column(
