@@ -13,7 +13,11 @@ class MenuScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/game'),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/game',
+                arguments: {'difficulty': 'Facil', 'gridSize': 8},
+              ),
               child: const Text('Jugar'),
             ),
             const SizedBox(height: 12),
