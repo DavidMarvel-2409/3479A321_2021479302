@@ -51,6 +51,12 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
     super.dispose();
   }
 
+  void _onCellTapped(int index) {
+    setState(() {
+      _cells[index].isRevealed = true;
+    });
+  }
+
   Widget _gameBoard() {
     return Center(
       child: Padding(
@@ -66,7 +72,10 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
             ),
             itemCount: _cells.length,
             itemBuilder: (context, index) {
-              return MineCell(index: index);
+              return MineCell(
+                cell: _cells[index],
+                onTap: () => _onCellTapped(index),
+              );
               /*return Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[400],
