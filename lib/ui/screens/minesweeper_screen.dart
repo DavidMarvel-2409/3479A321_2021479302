@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/cell_model.dart';
+import 'package:logger/logger.dart';
 import '../widgets/mine_cell.dart';
 import '../screens/about.dart';
 
-class MinesweeperScreen extends StatelessWidget {
+class MinesweeperScreen extends StatefulWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
+}
+
+class _MinesweeperScreenState extends State<MinesweeperScreen> {
+  late List<CellModel> _cells;
+  final logger = Logger();
 
   Widget _gameBoard() {
     return Center(
