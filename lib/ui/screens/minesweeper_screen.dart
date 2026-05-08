@@ -15,6 +15,42 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
   late List<CellModel> _cells;
   final logger = Logger();
 
+  @override
+  void initState() {
+    super.initState();
+
+    _cells = List.generate(64, (i) => CellModel(index: i));
+
+    logger.i('Lifecycle: initState() - El estado ha sido creado.');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    logger.i(
+      'Lifecycle: didChangeDependencies() - Contexto listo o dependencias cambiadas.',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant MinesweeperScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    logger.w(
+      'Lifecycle: didUpdateWidget() - La configuración del widget ha cambiado.',
+    );
+  }
+
+  @override
+  void dispose() {
+    logger.e(
+      'Lifecycle: dispose() - El estado se destruye. Liberando memoria.',
+    );
+
+    super.dispose();
+  }
+
   Widget _gameBoard() {
     return Center(
       child: Padding(
@@ -28,7 +64,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
               crossAxisSpacing: 2.0,
               mainAxisSpacing: 2.0,
             ),
-            itemCount: 64, // 8x8 = 64 celdas
+            itemCount: _cells.length,
             itemBuilder: (context, index) {
               return MineCell(index: index);
               /*return Container(
