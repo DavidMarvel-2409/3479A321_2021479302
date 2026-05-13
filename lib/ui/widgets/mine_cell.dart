@@ -26,7 +26,7 @@ class MineCell extends StatelessWidget {
                         height: 32,
                       )
                     : Text(
-                        '${cell.adjacentBombs}',
+                        cell.adjacentBombs == 0 ? '' : '${cell.adjacentBombs}',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
