@@ -18,21 +18,23 @@ class MineCell extends StatelessWidget {
           border: Border.all(color: theme.colorScheme.outline, width: 1.5),
         ),
         child: Center(
-          child: cell.isRevealed && cell.isBomb
-              ? Image.asset('assets/icons/mine.png', width: 32, height: 32)
+          child: cell.isRevealed
+              ? cell.isBomb
+                    ? Image.asset(
+                        'assets/icons/mine.png',
+                        width: 32,
+                        height: 32,
+                      )
+                    : Text(
+                        '${cell.adjacentBombs}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      )
               : const SizedBox.shrink(),
         ),
       ),
     );
-
-    // return Container(
-    //   decoration: BoxDecoration(
-    //     color: theme.colorScheme.secondary,
-    //     border: Border.all(color: theme.colorScheme.outline, width: 1.5),
-    //   ),
-    //   child: Center(
-    //     child: Image.asset('assets/icons/mine.png', width: 32, height: 32),
-    //   ),
-    // );
   }
 }

@@ -8,6 +8,7 @@ class GameViewModel extends ChangeNotifier {
 
   GameViewModel() {
     _generateMines();
+    _calculateAdjacentBombs();
   }
 
   List<CellModel> get cells => _cells;
@@ -31,5 +32,39 @@ class GameViewModel extends ChangeNotifier {
         minesPlace++;
       }
     }
+  }
+
+  void _calculateAdjacentBombs() {
+    for (int i = 0; i < _cells.length; i++) {
+      if (_cells[i].isBomb) continue;
+      int bombCount = 0;
+      List<int> neighbors = _getNeighbors(i);
+
+      for (int neighbor in neighbors) {
+        if (_cells[neighbor].isBomb) {
+          bombCount++;
+        }
+      }
+      _cells[i].adjacentBombs = bombCount;
+    }
+  }
+
+  List<int> _getNeighbors(int index) {
+    List<int> neighbors = [];
+
+    int row = index ~/ 8;
+    int col = index % 8;
+
+    for (int r = row - 1; r <= row + 1; r++) {
+      for (int c = col - 1; c <= col + 1; c++) {
+        if (r == row && c == col) continue;
+
+        if (r >= 0 && r < 8 && c >= 0 && c < 8) {
+          neighbors.add(r * 8 + c);
+        }
+      }
+    }
+
+    return neighbors;
   }
 }
