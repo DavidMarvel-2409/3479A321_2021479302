@@ -1,63 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/cell_model.dart';
-import 'package:logger/logger.dart';
+// import 'package:flutter_application_1/models/cell_model.dart';
+// import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import '../widgets/mine_cell.dart';
 import '../screens/about.dart';
 import 'package:flutter_application_1/viewmodels/game_view_model.dart';
 
-class MinesweeperScreen extends StatefulWidget {
+class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
-}
-
-class _MinesweeperScreenState extends State<MinesweeperScreen> {
-  late List<CellModel> _cells;
-  final logger = Logger();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _cells = List.generate(64, (i) => CellModel(index: i));
-
-    logger.i('Lifecycle: initState() - El estado ha sido creado.');
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    logger.i(
-      'Lifecycle: didChangeDependencies() - Contexto listo o dependencias cambiadas.',
-    );
-  }
-
-  @override
-  void didUpdateWidget(covariant MinesweeperScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    logger.w(
-      'Lifecycle: didUpdateWidget() - La configuración del widget ha cambiado.',
-    );
-  }
-
-  @override
-  void dispose() {
-    logger.e(
-      'Lifecycle: dispose() - El estado se destruye. Liberando memoria.',
-    );
-
-    super.dispose();
-  }
-
-  void _onCellTapped(int index) {
-    setState(() {
-      _cells[index].isRevealed = true;
-    });
-  }
 
   Widget _gameBoard(GameViewModel viewModel) {
     return Center(
