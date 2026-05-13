@@ -67,9 +67,9 @@ class MinesweeperScreen extends StatelessWidget {
             Container(
               height: 60,
               color: Colors.grey[300],
-              child: const Center(
+              child: Center(
                 child: Text(
-                  'STATUS: 349 segundos | Minas: 10 | Cuadros: 56',
+                  viewModel.isGameOver ? 'GAME OVER' : 'Buscaminas en curso',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
               ),

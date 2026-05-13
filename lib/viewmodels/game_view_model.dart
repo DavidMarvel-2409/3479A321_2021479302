@@ -4,6 +4,8 @@ import 'dart:math';
 import '../models/cell_model.dart';
 
 class GameViewModel extends ChangeNotifier {
+  bool _isGameOver = false;
+  bool get isGameOver => _isGameOver;
   final List<CellModel> _cells = List.generate(64, (i) => CellModel(index: i));
 
   GameViewModel() {
@@ -14,9 +16,24 @@ class GameViewModel extends ChangeNotifier {
   List<CellModel> get cells => _cells;
 
   void revealCell(int index) {
-    if (_cells[index].isRevealed) return;
+    if (_isGameOver || _cells[index].isRevealed) return;
+    _cells[index].isRevealed = true;
 
-    _floodReveal(index);
+    if (_cells[index].isBomb) {
+      _isGameOver = true;
+      _revealAll();
+
+      notifyListeners();
+      return;
+    }
+    if (_cells[index].adjacentBombs == 0) {
+      List<int> neighbors = _getNeighbors(index);
+      for (int neighbor in neighbors) {
+        if (!_cells[neighbor].isBomb) {
+          _floodReveal(index);
+        }
+      }
+    }
 
     notifyListeners();
   }
@@ -81,6 +98,12 @@ class GameViewModel extends ChangeNotifier {
       if (!_cells[neighbor].isBomb) {
         _floodReveal(neighbor);
       }
+    }
+  }
+
+  void _revealAll() {
+    for (var cell in _cells) {
+      cell.isRevealed = true;
     }
   }
 }
