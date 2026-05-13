@@ -18,7 +18,7 @@ class MineCell extends StatelessWidget {
           border: Border.all(color: theme.colorScheme.outline, width: 1.5),
         ),
         child: Center(
-          child: cell.isRevealed
+          child: cell.isRevealed && cell.isBomb
               ? Image.asset('assets/icons/mine.png', width: 32, height: 32)
               : const SizedBox.shrink(),
         ),
