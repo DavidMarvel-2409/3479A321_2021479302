@@ -17,23 +17,20 @@ class GameViewModel extends ChangeNotifier {
 
   void revealCell(int index) {
     if (_isGameOver || _cells[index].isRevealed) return;
-    _cells[index].isRevealed = true;
 
     if (_cells[index].isBomb) {
+      _cells[index].isRevealed = true;
+
       _isGameOver = true;
+
       _revealAll();
 
       notifyListeners();
+
       return;
     }
-    if (_cells[index].adjacentBombs == 0) {
-      List<int> neighbors = _getNeighbors(index);
-      for (int neighbor in neighbors) {
-        if (!_cells[neighbor].isBomb) {
-          _floodReveal(index);
-        }
-      }
-    }
+
+    _floodReveal(index);
 
     notifyListeners();
   }
