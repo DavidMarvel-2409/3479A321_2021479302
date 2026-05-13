@@ -39,6 +39,8 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepOrange,
           primary: Colors.deepOrange,
           secondary: Colors.amber,
+          surface: Colors.grey.shade300,
+          error: Colors.red.shade300,
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 40, 137, 193),
         textTheme: const TextTheme(

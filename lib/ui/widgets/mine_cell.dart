@@ -38,7 +38,11 @@ class MineCell extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: theme.colorScheme.secondary,
+          color: cell.isRevealed
+              ? cell.isBomb
+                    ? theme.colorScheme.error
+                    : theme.colorScheme.surface
+              : theme.colorScheme.secondary,
           border: Border.all(color: theme.colorScheme.outline, width: 1.5),
         ),
         child: Center(child: _buildCellContent()),
