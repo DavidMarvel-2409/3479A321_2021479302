@@ -22,6 +22,11 @@ class MenuScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/settings'),
+              child: const Text('Ajustes'),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/history'),
               child: const Text('Historial'),
             ),

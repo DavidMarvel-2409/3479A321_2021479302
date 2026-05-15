@@ -6,10 +6,14 @@ import 'ui/screens/history_screen.dart';
 import 'ui/screens/about.dart';
 import 'package:provider/provider.dart';
 import 'viewmodels/game_view_model.dart';
+import 'core/services/storage_service.dart';
+import 'ui/screens/settings_screen.dart';
 
 var logger = Logger();
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageService.init();
   logger.d('Debug: iniciando app');
   logger.i('Info: app iniciada');
   logger.w('Warning: prueba');
@@ -32,6 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         '/history': (context) => const HistoryScreen(),
         '/about': (context) => const AboutScreen(),
+        '/settings': (context) => const SettingsScreen(),
       },
       title: 'Buscaminas',
       theme: ThemeData(
