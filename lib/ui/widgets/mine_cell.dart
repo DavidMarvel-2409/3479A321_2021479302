@@ -22,11 +22,11 @@ class MineCell extends StatelessWidget {
     }
 
     return Text(
-      cell.adjacentBombs == 0 ? '' : '${cell.adjacentBombs}',
-      style: const TextStyle(
+      cell.adjacentMines == 0 ? '' : '${cell.adjacentMines}',
+      style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
-        color: Colors.blueGrey,
+        color: _numberColor(cell.adjacentMines),
       ),
     );
   }
@@ -48,5 +48,27 @@ class MineCell extends StatelessWidget {
         child: Center(child: _buildCellContent()),
       ),
     );
+  }
+
+  Color _numberColor(int number) {
+    switch (number) {
+      case 1:
+        return Colors.blue;
+
+      case 2:
+        return Colors.green;
+
+      case 3:
+        return Colors.red;
+
+      case 4:
+        return Colors.purple;
+
+      case 5:
+        return Colors.orange;
+
+      default:
+        return Colors.black;
+    }
   }
 }

@@ -72,7 +72,7 @@ class GameViewModel extends ChangeNotifier {
           bombCount++;
         }
       }
-      _cells[i].adjacentBombs = bombCount;
+      _cells[i].adjacentMines = bombCount;
     }
   }
 
@@ -106,7 +106,7 @@ class GameViewModel extends ChangeNotifier {
 
     _cells[index].isRevealed = true;
 
-    if (_cells[index].adjacentBombs > 0) return;
+    if (_cells[index].adjacentMines > 0) return;
 
     List<int> neighbors = _getNeighbors(index);
 

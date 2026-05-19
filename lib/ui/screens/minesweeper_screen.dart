@@ -63,9 +63,24 @@ class MinesweeperScreen extends StatelessWidget {
               height: 60,
               color: Colors.grey[300],
               child: Center(
-                child: Text(
-                  viewModel.isGameOver ? 'GAME OVER' : 'Buscaminas en curso',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      viewModel.isGameOver ? 'GAME OVER' : 'Buscaminas',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      'T: ${viewModel.secondsElapsed}s',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

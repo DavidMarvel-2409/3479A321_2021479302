@@ -3,12 +3,12 @@ class CellModel {
   bool isBomb;
   bool isRevealed;
   bool isFlagged;
-  int adjacentBombs;
+  int adjacentMines;
   CellModel({
     required this.index,
     this.isBomb = false,
     this.isRevealed = false,
     this.isFlagged = false,
-    this.adjacentBombs = 0,
+    this.adjacentMines = 0,
   });
 }
