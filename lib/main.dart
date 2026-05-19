@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'viewmodels/game_view_model.dart';
 import 'core/services/storage_service.dart';
 import 'ui/screens/settings_screen.dart';
+import 'viewmodels/settings_view_model.dart';
 
 var logger = Logger();
 
@@ -18,7 +19,13 @@ void main() async {
   logger.i('Info: app iniciada');
   logger.w('Warning: prueba');
   logger.e('Error: prueba');
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => SettingsViewModel())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

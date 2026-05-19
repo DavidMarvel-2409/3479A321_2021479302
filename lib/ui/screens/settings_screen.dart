@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../core/services/storage_service.dart';
+import 'package:provider/provider.dart';
+import '../../viewmodels/settings_view_model.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -27,6 +28,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await StorageService.saveUsername(_nameController.text);
 
     await StorageService.saveDifficulty(_selectedDifficulty);
+
+    context.read<SettingsViewModel>().refreshSettings();
 
     if (mounted) {
       ScaffoldMessenger.of(
