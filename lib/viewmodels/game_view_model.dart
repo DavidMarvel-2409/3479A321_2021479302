@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-
 import '../models/cell_model.dart';
+import 'dart:async';
 
 class GameViewModel extends ChangeNotifier {
   bool _isGameOver = false;
   bool get isGameOver => _isGameOver;
-  final List<CellModel> _cells = List.generate(64, (i) => CellModel(index: i));
+  late List<CellModel> _cells;
+  Timer? _timer;
 
-  GameViewModel() {
+  int secondsElapsed = 0;
+
+  bool _isFirstTap = true;
+
+  // Dificultad dinámica
+  final int gridSize;
+
+  late int totalCells;
+
+  GameViewModel({required this.gridSize}) {
+    totalCells = gridSize * gridSize;
+    _cells = List.generate(totalCells, (i) => CellModel(index: i));
     _generateMines();
     _calculateAdjacentBombs();
   }
@@ -17,16 +29,17 @@ class GameViewModel extends ChangeNotifier {
 
   void revealCell(int index) {
     if (_isGameOver || _cells[index].isRevealed) return;
+    if (_isFirstTap) {
+      _isFirstTap = false;
+      _startTimer();
+    }
 
     if (_cells[index].isBomb) {
+      _timer?.cancel();
       _cells[index].isRevealed = true;
-
       _isGameOver = true;
-
       _revealAll();
-
       notifyListeners();
-
       return;
     }
 
@@ -63,22 +76,28 @@ class GameViewModel extends ChangeNotifier {
     }
   }
 
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      secondsElapsed++;
+      notifyListeners();
+    });
+  }
+
   List<int> _getNeighbors(int index) {
     List<int> neighbors = [];
 
-    int row = index ~/ 8;
-    int col = index % 8;
+    int row = index ~/ gridSize;
+    int col = index % gridSize;
 
     for (int r = row - 1; r <= row + 1; r++) {
       for (int c = col - 1; c <= col + 1; c++) {
         if (r == row && c == col) continue;
 
-        if (r >= 0 && r < 8 && c >= 0 && c < 8) {
-          neighbors.add(r * 8 + c);
+        if (r >= 0 && r < gridSize && c >= 0 && c < gridSize) {
+          neighbors.add(r * gridSize + c);
         }
       }
     }
-
     return neighbors;
   }
 
@@ -102,5 +121,11 @@ class GameViewModel extends ChangeNotifier {
     for (var cell in _cells) {
       cell.isRevealed = true;
     }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }

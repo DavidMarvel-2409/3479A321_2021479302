@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/models/cell_model.dart';
-// import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import '../widgets/mine_cell.dart';
 import '../screens/about.dart';
 import 'package:flutter_application_1/viewmodels/game_view_model.dart';
+import '../../viewmodels/settings_view_model.dart';
 
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
@@ -17,8 +16,8 @@ class MinesweeperScreen extends StatelessWidget {
           aspectRatio: 1.0, // Cuadrado perfecto
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(), // Bloquea el scroll
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 8, // 8 columnas
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: viewModel.gridSize,
               crossAxisSpacing: 2.0,
               mainAxisSpacing: 2.0,
             ),
@@ -38,11 +37,7 @@ class MinesweeperScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<GameViewModel>();
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    // Definimos valores por defecto (Fallback) en caso de que lleguen nulos
-    final String difficulty = args?['difficulty'] ?? 'Desconocida';
-    final int gridSize = args?['gridSize'] ?? 8;
+    final settingsVM = context.watch<SettingsViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Buscaminas'),
@@ -75,8 +70,8 @@ class MinesweeperScreen extends StatelessWidget {
               ),
             ),
             const Divider(height: 1),
-            Text('Dificultad: $difficulty'),
-            Text('Grid: $gridSize'),
+            Text('Dificultad: ${settingsVM.difficulty}'),
+            Text('Grid: ${settingsVM.gridSize}'),
             // Área de Juego
             Expanded(
               // Expande el tablero para llenar la pantalla

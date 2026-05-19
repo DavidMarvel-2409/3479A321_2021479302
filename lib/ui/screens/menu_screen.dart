@@ -24,7 +24,7 @@ class MenuScreen extends StatelessWidget {
               onPressed: () => Navigator.pushNamed(
                 context,
                 '/game',
-                arguments: {'difficulty': 'Facil', 'gridSize': 8},
+                // arguments: {'difficulty': 'Facil', 'gridSize': 8},
               ),
               child: const Text('Jugar'),
             ),
