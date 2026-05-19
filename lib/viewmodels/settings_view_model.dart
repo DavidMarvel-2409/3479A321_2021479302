@@ -5,7 +5,7 @@ class SettingsViewModel extends ChangeNotifier {
   String _username = '';
   String _difficulty = 'Fácil';
 
-  String get usermane => _username;
+  String get username => _username;
   String get difficulty => _difficulty;
 
   int get gridSize {
