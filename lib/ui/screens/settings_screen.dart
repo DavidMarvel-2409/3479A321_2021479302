@@ -29,13 +29,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     await StorageService.saveDifficulty(_selectedDifficulty);
 
+    if (!mounted) return;
+
     context.read<SettingsViewModel>().refreshSettings();
 
-    if (mounted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Guardado correctamente')));
-    }
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Guardado correctamente')));
   }
 
   @override
