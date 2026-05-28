@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import '../models/cell_model.dart';
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 
 class GameViewModel extends ChangeNotifier {
   bool _isGameOver = false;
   bool get isGameOver => _isGameOver;
   late List<CellModel> _cells;
   Timer? _timer;
+
+  final AudioPlayer _sfxPlayer = AudioPlayer();
 
   int secondsElapsed = 0;
 
@@ -39,10 +42,11 @@ class GameViewModel extends ChangeNotifier {
       _cells[index].isRevealed = true;
       _isGameOver = true;
       _revealAll();
+      _playSound('explosion.mp3');
       notifyListeners();
       return;
     }
-
+    _playSound('click.mp3');
     _floodReveal(index);
 
     notifyListeners();
@@ -126,6 +130,12 @@ class GameViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _timer?.cancel();
+    _sfxPlayer.dispose();
     super.dispose();
+  }
+
+  void _playSound(String fileName) async {
+    await _sfxPlayer.release();
+    await _sfxPlayer.play(AssetSource('audio/$fileName'));
   }
 }
