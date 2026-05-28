@@ -3,6 +3,8 @@ import 'dart:math';
 import '../models/cell_model.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+import 'package:logger/logger.dart';
 
 class GameViewModel extends ChangeNotifier {
   bool _isGameOver = false;
@@ -11,6 +13,8 @@ class GameViewModel extends ChangeNotifier {
   Timer? _timer;
 
   final AudioPlayer _sfxPlayer = AudioPlayer();
+  final Logger _logger = Logger();
+  StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
 
   int secondsElapsed = 0;
 
@@ -26,6 +30,7 @@ class GameViewModel extends ChangeNotifier {
     _cells = List.generate(totalCells, (i) => CellModel(index: i));
     _generateMines();
     _calculateAdjacentBombs();
+    _initAccelerometer();
   }
 
   List<CellModel> get cells => _cells;
@@ -130,6 +135,7 @@ class GameViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _timer?.cancel();
+    _accelerometerSubscription?.cancel();
     _sfxPlayer.dispose();
     super.dispose();
   }
@@ -137,5 +143,29 @@ class GameViewModel extends ChangeNotifier {
   void _playSound(String fileName) async {
     await _sfxPlayer.release();
     await _sfxPlayer.play(AssetSource('audio/$fileName'));
+  }
+
+  void _initAccelerometer() {
+    _accelerometerSubscription = accelerometerEventStream().listen((
+      AccelerometerEvent event,
+    ) {
+      final double shakeForce = event.x.abs();
+      _logger.i('Acelerometro X: $shakeForce');
+
+      if (_isGameOver && shakeForce > 15.0) {
+        _resetGame();
+      }
+    });
+  }
+
+  void _resetGame() {
+    _timer?.cancel();
+    secondsElapsed = 0;
+    _isGameOver = false;
+    _isFirstTap = true;
+    _cells = List.generate(totalCells, (i) => CellModel(index: i));
+    _generateMines();
+    _calculateAdjacentBombs();
+    notifyListeners();
   }
 }
