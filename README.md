@@ -1,17 +1,65 @@
-# flutter_application_1
+# Buscaminas Pro
 
-A new Flutter project.
+Aplicación móvil desarrollada en Flutter para jugar Buscaminas, con selección de dificultad, tablero dinámico, temporizador, persistencia local, efectos de sonido, acelerómetro e interoperabilidad con el sistema operativo.
 
-## Getting Started
+## Características principales
 
-This project is a starting point for a Flutter application.
+- Juego Buscaminas con tablero dinámico según dificultad.
+- Dificultades: Fácil, Medio y Difícil.
+- Temporizador de partida.
+- Persistencia local de configuración e historial usando `shared_preferences`.
+- Identidad digital configurada con package name propio.
+- Ícono personalizado de aplicación.
+- Efectos de sonido para selección de celda y derrota.
+- Reinicio del tablero al agitar el dispositivo usando acelerómetro.
+- Opción para compartir el resultado del juego mediante el menú nativo del sistema.
 
-A few resources to get you started if this is your first Flutter project:
+## Paquetes utilizados
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- `provider`: gestión de estado.
+- `shared_preferences`: almacenamiento local.
+- `logger`: registro de eventos en consola.
+- `audioplayers`: reproducción de efectos de sonido.
+- `sensors_plus`: lectura del acelerómetro.
+- `share_plus`: integración con el menú nativo de compartir.
+- `flutter_launcher_icons`: generación de íconos de la aplicación.
+- `change_app_package_name`: cambio del identificador del paquete.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Identidad digital
+
+El proyecto fue configurado con un identificador único de paquete:
+
+```text
+cl.valdeshernandez.buscaminas
+```
+Además, se generaron los íconos nativos de Android e iOS usando una imagen personalizada ubicada en:
+```text
+assets/icons/app_icon.png
+```
+## Recursos multimedia
+Los efectos de sonido se encuentran en:
+```text
+assets/audio/
+```
+Archivos utilizados:
+`click.mp3`: sonido al seleccionar una celda segura.
+`explosion.mp3`: sonido al perder la partida.
+`victory.mp3`: sonido reservado para victoria.
+## Pruebas de validación
+Para validar el proyecto se ejecutaron pruebas de análisis estático con:
+```powershell
+flutter analyze
+```
+También se realizaron pruebas manuales de ejecución para verificar:
+
+- Carga correcta de íconos y assets.
+- Reproducción de efectos de sonido.
+- Reinicio del juego mediante acelerómetro en dispositivo físico.
+- Visualización condicional del botón compartir al finalizar la partida.
+- Apertura del menú nativo de compartir.
+## Trabajos futuros
+- Implementar detección explícita de victoria y reproducir `victory.mp3`.
+- Agregar contador de minas restantes.
+- Permitir marcar celdas con bandera mediante pulsación larga.
+- Mejorar el historial con fecha, dificultad y resultado de cada partida.
+- Incorporar ranking local de mejores tiempos.
