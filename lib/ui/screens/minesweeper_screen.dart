@@ -4,6 +4,7 @@ import '../widgets/mine_cell.dart';
 import '../screens/about.dart';
 import 'package:flutter_application_1/viewmodels/game_view_model.dart';
 import '../../viewmodels/settings_view_model.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
@@ -42,6 +43,19 @@ class MinesweeperScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Buscaminas'),
         actions: [
+          if (viewModel.isGameOver)
+            IconButton(
+              icon: const Icon(Icons.share),
+              onPressed: () {
+                final String mensaje =
+                    '¡Acabo de jugar Buscaminas Pro!\n'
+                    'Dificultad: ${settingsVM.difficulty}\n'
+                    'Tiempo de supervivencia: ${viewModel.secondsElapsed} segundos.\n'
+                    '¡Intenta superarme!';
+
+                SharePlus.instance.share(ShareParams(text: mensaje));
+              },
+            ),
           IconButton(
             icon: const Icon(Icons.person_outline),
             onPressed: () {
